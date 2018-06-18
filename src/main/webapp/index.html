@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SOMRT's house</title>
+</head>
+<!-- this page specific styles -->
+<link rel="stylesheet" href="css/signin.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="css/form-wizard.css" type="text/css" media="screen"/>
+<script src="js/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/live/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<script src="js/theme.js"></script>
+<style type="text/css">
+
+    .btn-glow {
+        font-size: 13px;
+        border-radius: 4px;
+        color: #333;
+        padding: 5px 10px;
+        text-align: center;
+        box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 0px 0px #cccccc;
+        display: inline-block;
+        border: 1px solid #e5e5e5;
+        vertical-align: middle;
+        cursor: pointer;
+        background: #ffffff;
+        background: -moz-linear-gradient(top, white 0%, #eef0f1 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #eef0f1));
+        background: -webkit-linear-gradient(top, white 0%, #eef0f1 100%);
+        background: -o-linear-gradient(top, white 0%, #eef0f1 100%);
+        background: -ms-linear-gradient(top, white 0%, #eef0f1 100%);
+        background: linear-gradient(to bottom, white 0%, #eef0f1 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eef0f1', GradientType=0);
+    }
+
+    .btn-glow.primary {
+        border-color: #2480c2;
+        color: #fff;
+        text-shadow: rgba(0, 0, 0, 0.35) 0 1px 0;
+        box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.5);
+        background: #54b3ff;
+        background: -moz-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #54b3ff), color-stop(100%, #0078d9));
+        background: -webkit-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+        background: linear-gradient(#54b3ff, #0078d9);
+        background: -o-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+        background: -ms-linear-gradient(top, #54b3ff 0%, #0078d9 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#54b3ff', endColorstr='#0078d9', GradientType=0);
+    }
+
+    .login-bg {
+        background: url("img/landscape.jpg") no-repeat center center fixed;
+        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bgs/landscape.jpg', sizingMethod='scale');
+        -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/bgs/landscape.jpg', sizingMethod='scale')";
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-color: #16ab84 \9;
+    }
+
+    .field-box {
+        margin-bottom: 25px;
+        margin-left: 0;
+        float: left;
+        width: 100%;
+    }
+
+    .form_view {
+        text-align: center;
+    }
+
+    form {
+        margin-bottom: 0;
+    }
+
+    .form-wrapper .field-box.error label, .form-wrapper .field-box.error .alert-msg {
+        margin-left: 0px;
+        text-align: left;
+    }
+
+    .form-wrapper .field-box.success label, .form-wrapper .field-box.success .alert-msg {
+        margin-left: 0px;
+        text-align: left;
+    }
+
+    .form-wrapper label {
+        width: auto;
+    }
+
+    .login-wrapper .box input[type="text"], .login-wrapper .box input[type="password"] {
+        margin-bottom: 10px;
+    }
+
+    .form-wrapper .field-box {
+        margin-bottom: 10px;
+    }
+
+    .login-wrapper {
+        top: 150px;
+    }
+
+    .login-wrapper .box {
+        padding: 45px 0px 30px;
+    }
+
+    #captchaId {
+        font-size: 15px;
+        height: 30px;
+        width: 90px;
+        letter-spacing: 2px;
+        float: left;
+    }
+
+    #captchaId, #emailId, #pwdId {
+        background-color: rgb(250, 255, 189);
+    }
+
+    #captchaImageId {
+        border-radius: 2px;
+        position: absolute;
+        cursor: pointer;
+        margin-left: -27px;
+    }
+
+    #captchaMsgId {
+        position: absolute;
+        margin-left: -64px;
+        margin-top: 24px;
+    }
+
+    .span12,
+    .row-fluid .span12 {
+        width: 100%;
+        border-radius: 5px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .captcha {
+        border-radius: 5px;
+    }
+
+</style>
+<script>
+
+    //验证码验证
+    $(function () {
+
+        // //自动登录
+        // $.ajax({
+        //     url: "action/user/checkLogin",
+        //     dataType: "json",
+        //     data: {"ts": new Date().getTime()},
+        //     type: "post",
+        //     success: function (data) {
+        //         if (data.code == "100" && data.data.result == true) {
+        //             window.location.href = "page/homePage.jsp";
+        //         }
+        //     }
+        // });
+
+
+        var beforeCapValue = "";
+
+        $("#captchaImageId").click(function () {
+            this.src = "captcha-image.html?" + Math.random();
+            $("#captchaMsgId").attr("visibility", "hidden");
+        });
+
+        $('#login_form').form(
+            {
+                url:"action/user/login",
+                success: function(data){
+                    var data = eval('(' + data + ')');
+                    if(data.code!="100"){
+                        alert(data.msg);
+                    }else{
+                        window.location.href = "page/homePage.jsp";
+                    }
+                }
+            }
+        );
+
+        $('#login-button').click(function(){
+            $('#login_form').submit();
+        });
+
+        $("#captchaId").keyup(function () {
+            var captcha = $("#captchaId").val();
+            if (captcha.length == 4) {
+                if (beforeCapValue == captcha) {
+                    return;
+                }
+                beforeCapValue = captcha;
+                $.ajax({
+                    url: "action/user/validateCaptcha",
+                    dataType: "json",
+                    data: {"captcha": captcha},
+                    type: "get",
+                    success: function (data) {
+                        if (data.data == "ok") {
+                            var msg = $("#captchaMsgId");
+                            msg.attr("src", "img/form-ok-1.gif");
+                            $("#captchaMsgId").attr("visibility", "visible");
+                        } else {
+                            handleCapErr();
+                        }
+                    },
+                    error: function () {
+                        handleCapErr();
+                    }
+                });
+            }
+        });
+
+        function handleCapErr() {
+            var msg = $("#captchaMsgId");
+            msg.attr("src", "img/form-error-1.gif");
+            msg.attr("visibility", "visible");
+            $("#captchaImageId").attr("src", "captcha-image.html?" + Math.random());
+        }
+    });
+
+</script>
+<body class="login-bg">
+<div class="row-fluid login-wrapper">
+    <a href="index.html">
+        <img class="logo" src="img/shuomalogo.png"/>
+    </a>
+    <div class="span4 box">
+        <div class="content-wrap form-wrapper">
+            <!-- action="action/user/login" -->
+            <form method="post" id="login_form">
+                <div class="field-box success">
+                    <!-- <input class="span12" id="emailId" type="text" name="userName" placeholder="请输入email地址" required /> -->
+                    <input class="span12" id="emailId" type="text" name="account" placeholder="请输入email地址" required/>
+                </div>
+                <div class="field-box success">
+                    <input class="span12" id="pwdId" type="password" name="passWord" placeholder="请输入密码" required/>
+                </div>
+                <div class="field-box success">
+                    <input class="captcha" id="captchaId" type="text" name="captcha" placeholder="验证码" maxlength="4"
+                           required/>
+                    <img id="captchaMsgId" class="capPicMsg"/>
+                    <img id="captchaImageId" src="captcha-image.html"/>
+                </div>
+
+                <div class="field-box remember">
+                    <input id="remember-me" type="checkbox" name="remember_me" checked="checked"/>
+                    <label for="remember-me">记住密码，下次自动登录</label>
+                </div>
+                <input class="btn-glow primary login" type="button" id="login-button" value="商家登录"/>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
