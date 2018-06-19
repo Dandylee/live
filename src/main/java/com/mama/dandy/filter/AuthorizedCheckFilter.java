@@ -2,7 +2,9 @@ package com.mama.dandy.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.mama.dandy.exception.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,17 @@ public class AuthorizedCheckFilter implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		boolean isLogged = (boolean) request.getSession(true).getAttribute("isLogged");
+		HttpSession session = request.getSession(true);
+		if(session == null){
+			throw new BusinessException("-1","请先登录");
+		}
+		boolean isLogged =false;
+		try{
+			 isLogged = (boolean) session.getAttribute("isLogged");
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new BusinessException("-1","请先登录");
+		}
 		if(isLogged){
 			return true;
 		}else{

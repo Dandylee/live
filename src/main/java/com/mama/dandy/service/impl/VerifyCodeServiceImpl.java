@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,10 +32,13 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
     public List<VerifyCode> generateVerifyCode(VerifyCodeBo bo) {
         List<VerifyCode> list = new ArrayList<>();
         List<String> strList = new ArrayList<>();
-        for(int i=0;i<bo.getNum()-1;i++){
-            VerifyCode verifyCode = buildVerifyCode(bo);
-            list.add(verifyCode);
-            strList.add(verifyCode.getVerifyCode());
+        VerifyCode verifyCode = buildVerifyCode(bo);
+        while(strList.size()<bo.getNum()){
+            if(!strList.contains(verifyCode.getVerifyCode())){
+                list.add(verifyCode);
+                strList.add(verifyCode.getVerifyCode());
+            }
+            verifyCode = buildVerifyCode(bo);
         }
         //判断是否已经插入了,如果是则重新生成
         List<String> exists = verifyDao.findByCodes(strList);
@@ -78,6 +82,14 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
                 iter.remove();
             }
         }
+    }
+
+    public static void main(String args[]){
+        List<String> codes = new ArrayList<>();
+        codes.add("b");
+        codes.add("v");
+        System.out.println(codes.contains("b"));
+        System.out.println(codes.contains("B"));
     }
 
     @Override

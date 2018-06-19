@@ -33,12 +33,15 @@ public class ExceptionFilter extends GenericFilterBean {
 				BusinessException cause = (BusinessException) ex.getCause();
 				resBase.setCode(cause.getCode());
 				resBase.setMsg(cause.getMsg());
-			} else {
-				HttpServletResponse res = (HttpServletResponse)response;
-				HttpServletRequest req = (HttpServletRequest)request;
-				res.sendRedirect(req.getContextPath() + "/error.jsp");
-				logger.error(ex.getMessage(), ex);
-				return;
+			}
+			else {
+				resBase.setCode("-1");
+				resBase.setMsg(ex.getMessage());
+//				HttpServletResponse res = (HttpServletResponse)response;
+//				HttpServletRequest req = (HttpServletRequest)request;
+//				res.sendRedirect(req.getContextPath() + "/error.jsp");
+//				logger.error(ex.getMessage(), ex);
+//				return;
 			}
 			json = JsonUtils.toString(resBase);
 			response.setContentType("application/json");

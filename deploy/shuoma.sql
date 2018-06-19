@@ -33,8 +33,9 @@ CREATE TABLE `shuoma_verify_code` (
 `operator` VARCHAR(64)  NULL default '',
 `verifyTime` BIGINT NOT NULL DEFAULT 0,
 PRIMARY KEY (`id`),
-key `index_verify_code` (`verifyCode`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+key `index_verify_code` (`verifyCode`),
+key `index_agentCode` (`agentCode`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
 
 
 CREATE TABLE `shuoma_machine_print_log` (
