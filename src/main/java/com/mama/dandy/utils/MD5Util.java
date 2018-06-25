@@ -30,11 +30,12 @@ public class MD5Util {
 	}
 	
 	public static void main(String args[]){
-		String data=null;
+		String data="1";
 		String timeStamp=new Date().getTime()/1000+"";
-		String key="hgfhgfgjf546546f65464f65f";
+		String key="1849CB30471FFE4F668250BC78ED69B6";
 		System.out.println(key+data+timeStamp);
 		String token =getMd5(key+data+timeStamp).toLowerCase();
+		System.out.println(timeStamp);
 		System.out.println(token);
 	}
 }
