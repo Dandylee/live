@@ -33,7 +33,7 @@ public class LoginAccountDao extends BaseDao<LoginAccount> {
 	}
 	
 	public Integer getAccountIdByAccount(Integer id){
-		String sql = "SELECT id FROM shuoma_login_account where id=?";
+		String sql = "SELECT level FROM shuoma_login_account where id=?";
 		return this.getJdbcTemplate().queryForObject(sql, Integer.class, id);
 	}
 	
@@ -51,11 +51,15 @@ public class LoginAccountDao extends BaseDao<LoginAccount> {
 		return involveCount;
 	}
 	
-	public List<LoginAccount> listAllLoginAccount(ListAccountBo bo){
+	public List<LoginAccount> listAllLoginAccount(ListAccountBo bo,Integer level){
 		String sql = "SELECT * FROM shuoma_login_account a where 1=1";
 		List<Object> params= new ArrayList<Object>();
 		if(bo.getUserName()!=null){
 			sql +=" AND a.userName like '%"+bo.getUserName()+"%'";
+		}
+		if(level!=null){
+			sql +=" AND a.level >=?";
+			params.add(level);
 		}
 		sql +=" ORDER BY a.id asc";
 		if(bo.getRows()!=null && bo.getPage()!=null){

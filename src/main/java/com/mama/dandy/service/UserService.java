@@ -27,11 +27,11 @@ public interface UserService {
 	
 	public int addLoginAccount(AddAccountBo bo);
 	
-	public int uptLoginAccount(AddAccountBo bo);
+	public int uptLoginAccount(AddAccountBo bo,Integer level);
 	
-	public int delLoginAccount(AddAccountBo bo);
+	public int delLoginAccount(AddAccountBo bo,Integer level);
 	
-	public List<LoginAccount> listLoginAccount(ListAccountBo bo)throws Exception;
+	public List<LoginAccount> listLoginAccount(ListAccountBo bo,Integer level)throws Exception;
 	
 	public int count(ListAccountBo bo)throws Exception;
 	

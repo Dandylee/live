@@ -3,6 +3,7 @@ package com.mama.dandy.controller;
 
 import com.mama.dandy.bo.VerifyCodeBo;
 import com.mama.dandy.common.Resjson;
+import com.mama.dandy.domain.LoginAccount;
 import com.mama.dandy.domain.VerifyCode;
 import com.mama.dandy.exception.BusinessException;
 import com.mama.dandy.service.VerifyCodeService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value ="/action/verify")
@@ -39,7 +41,12 @@ public class VerifyCodeController{
         Resjson resjson = new Resjson();
         resjson.setData(service.generateVerifyCode(bo));
 
-        bo.setOperator( request.getSession()==null?"":(String)(request.getSession().getAttribute("account")));
+        HttpSession session = request.getSession();
+        LoginAccount account = null;
+        if(session!=null){
+            account = (LoginAccount)session.getAttribute("account");
+        }
+        bo.setOperator( account==null?"":account.getUserName());
         return JsonUtils.toJSONString(resjson);
 
     }

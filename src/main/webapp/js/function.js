@@ -84,6 +84,9 @@ decoration = {
        },
        
     formatTime : function(val){
+		if(val == '0'){
+            return '';
+		}
     	return (new Date(val*1000).toLocaleString());
     },
     

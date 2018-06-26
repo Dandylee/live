@@ -4,7 +4,7 @@ use shuoma;
 
 CREATE TABLE `shuoma_login_account` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `userName` VARCHAR(80) NOT NULL,
+  `userName` VARCHAR(80) NOT NULL DEFAULT '',
 `account` VARCHAR(80) unique NOT NULL,
   `lastLogin` BIGINT NOT NULL DEFAULT 0,
   `pwd` VARCHAR(80) NOT NULL,
@@ -14,11 +14,11 @@ CREATE TABLE `shuoma_login_account` (
 
 CREATE TABLE `shuoma_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `userName` VARCHAR(80) NOT NULL,
+  `userName` VARCHAR(80) NOT NULL DEFAULT '',
   `password` VARCHAR(80) NOT NULL,
   `email` VARCHAR(80) DEFAULT NULL,
   `mobile` VARCHAR(80) DEFAULT NULL,
-`account` VARCHAR(80) unique,
+`account` VARCHAR(80) unique not null,
   `registerTime` BIGINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;

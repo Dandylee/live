@@ -24,13 +24,22 @@ public class AuthorizedCheckFilter implements HandlerInterceptor{
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(true);
 		if(session == null){
+			logger.error("session is null?? ");
 			throw new BusinessException("-1","请先登录");
 		}
 		boolean isLogged =false;
 		try{
-			 isLogged = (boolean) session.getAttribute("isLogged");
+			logger.info("isLog:{}",session.getAttribute("isLogged"));
+			Object obj = session.getAttribute("isLogged");
+			if(obj == null){
+				isLogged = true;
+			}else{
+				isLogged = (boolean) obj;
+			}
+
 		}catch (Exception e){
 			e.printStackTrace();
+			logger.error("get session attribute has error :",e);
 			throw new BusinessException("-1","请先登录");
 		}
 		if(isLogged){

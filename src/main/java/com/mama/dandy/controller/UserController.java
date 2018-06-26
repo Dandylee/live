@@ -94,7 +94,8 @@ public class UserController {
 		
 		logger.info("用户"+account.getUserName()+"登录成功");
 		request.getSession().setAttribute("name", account.getUserName());
-		request.getSession(true).setAttribute("isLogged", true);
+		logger.info("set attribute isLog to session,{}",bo.getAccount());
+		request.getSession().setAttribute("isLogged", true);
 		request.getSession().setAttribute(userAccountMD5, true);
 		return JsonUtils.toJSONString(ResponseCode.success);
 	}
@@ -224,13 +225,18 @@ public class UserController {
 	
 	@RequestMapping("/listLoginAccount")
 	@ResponseBody
-	public String listLoginAccount(ListAccountBo bo){
+	public String listLoginAccount(HttpServletRequest request,ListAccountBo bo){
 		
 		CommonVo vo = new CommonVo();
 		List<LoginAccount> resList = new ArrayList<>();
 		int count=0;
+		HttpSession session = request.getSession();
+		LoginAccount account = null;
+		if(session!=null){
+			account = (LoginAccount)session.getAttribute("account");
+		}
 		try {
-			resList = userService.listLoginAccount(bo);
+			resList = userService.listLoginAccount(bo,account==null?null:account.getLevel());
 			count = userService.count(bo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -260,7 +266,12 @@ public class UserController {
 	@ResponseBody
 	public String uptLoginAccount(HttpServletRequest request,AddAccountBo bo){
 		Resjson result = new Resjson();
-		int count= userService.uptLoginAccount(bo);
+		HttpSession session = request.getSession();
+		LoginAccount account = null;
+		if(session!=null){
+			account = (LoginAccount)session.getAttribute("account");
+		}
+		int count= userService.uptLoginAccount(bo,account==null?null:account.getLevel());
 		if(count<1){
 			result.setCode("102");
 			result.setMsg("更新用户失败");
@@ -273,7 +284,12 @@ public class UserController {
 	@ResponseBody
 	public String delLoginAccount(HttpServletRequest request,AddAccountBo bo){
 		Resjson result = new Resjson();
-		int count= userService.delLoginAccount(bo);
+		HttpSession session = request.getSession();
+		LoginAccount account = null;
+		if(session!=null){
+			account = (LoginAccount)session.getAttribute("account");
+		}
+		int count= userService.delLoginAccount(bo,account==null?null:account.getLevel());
 		if(count<1){
 			result.setCode("103");
 			result.setMsg("删除用户失败");

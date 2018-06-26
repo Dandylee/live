@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mama.dandy.vo.CommonVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	LoginAccountDao loginAccountDao;
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+
 	@Autowired
 	UserDao userDao;
 	
@@ -124,9 +129,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<LoginAccount> listLoginAccount(ListAccountBo bo) {
+	public List<LoginAccount> listLoginAccount(ListAccountBo bo,Integer level) {
 		// TODO Auto-generated method stub
-		return loginAccountDao.listAllLoginAccount(bo);
+		return loginAccountDao.listAllLoginAccount(bo,level);
 	}
 	
 	public int count(ListAccountBo bo){
@@ -134,33 +139,47 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int uptLoginAccount(AddAccountBo bo) {
+	public int uptLoginAccount(AddAccountBo bo,Integer level) {
 		// TODO Auto-generated method stub
 		Integer id=bo.getId();
 		if(id==null){
 			throw new BusinessException("103", "用户id不能为空");
 		}
+		Integer userLevel = null;
 		try{
-			loginAccountDao.getAccountIdByAccount(id);
+			userLevel = loginAccountDao.getAccountIdByAccount(id);
+			logger.info("operator update level is {},userLevel is {}",level,userLevel);
 		}catch(Exception e){
+			logger.error("update account error",e);
 			throw new BusinessException("102", "用户不存在");
+		}
+		if(level!=null && userLevel!=null && level>userLevel){
+			throw new BusinessException("112", "不能编辑权限比你高的账户");
+		}
+		if(level!=null && bo.getLevel()<level){
+			throw new BusinessException("113", "用户权限只能小于当前用户的权限");
 		}
 		return loginAccountDao.uptLoginAccount(bo);
 	}
 
 	@Override
-	public int delLoginAccount(AddAccountBo bo) {
+	public int delLoginAccount(AddAccountBo bo,Integer level) {
 		// TODO Auto-generated method stub
 		Integer id=bo.getId();
 		if(id==null){
 			throw new BusinessException("103", "用户id不能为空");
 		}
+		Integer userLevel = null;
 		try{
-			loginAccountDao.getAccountIdByAccount(id);
+			userLevel = loginAccountDao.getAccountIdByAccount(id);
+			logger.info("operator delete level is {},userLevel is {}",level,userLevel);
 		}catch(Exception e){
+			logger.error("delete account error",e);
 			throw new BusinessException("102", "用户不存在");
 		}
-		
+		if(level!=null && userLevel!=null && level>userLevel){
+			throw new BusinessException("112", "不能删除权限比你高的账户");
+		}
 		return loginAccountDao.delLoginAccount(bo);
 	}
 	
