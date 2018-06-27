@@ -89,6 +89,16 @@ decoration = {
 		}
     	return (new Date(val*1000).toLocaleString());
     },
+
+	isYesOrNo : function (val) {
+        if(val==0 || val=="0"){
+            return "否"
+        }
+        if(val==1 || val=="1"){
+            return "是"
+        }
+    },
+
     
     formatOperType : function(val){
     	if(val==1){

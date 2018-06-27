@@ -38,6 +38,8 @@ public class VerifyCodeController{
         if(bo.getNum()==null || bo.getNum()>500){
             throw new BusinessException("-1","参数有误");
         }
+        String code = handle(bo.getAgentCode());
+        bo.setAgentCode(code);
         Resjson resjson = new Resjson();
         resjson.setData(service.generateVerifyCode(bo));
 
@@ -49,6 +51,22 @@ public class VerifyCodeController{
         bo.setOperator( account==null?"":account.getUserName());
         return JsonUtils.toJSONString(resjson);
 
+    }
+
+    private static String handle(String code) {
+        int index =0;
+        for(char c : code.toCharArray()){
+            if(c!='0'){
+                break;
+            }else{
+                index++;
+            }
+        }
+        return  code.substring(index);
+    }
+
+    public static void main(String args[]){
+        System.out.println(handle("001"));
     }
 
     @RequestMapping("/listCodes")

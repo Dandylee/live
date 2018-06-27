@@ -65,7 +65,7 @@
                         <th field="id" hidden=true>密钥编号</th>
                         <th field="agentCode" width="18%" align="center">代理商编号</th>
                         <th field="verifyCode" width="20%" align="center">密钥</th>
-                        <th field="isValid" width="7%" align="center">是否认证</th>
+                        <th field="isValid" width="7%" align="center" formatter="decoration.isYesOrNo">是否认证</th>
                         <th field="verifyTime" width="21%" formatter="decoration.formatTime">认证时间</th>
                         <th field="operator" width="15%" align="center">操作人</th>
                         <th field="createTime" width="20%" align="center" formatter="decoration.formatTime">创建时间</th>
