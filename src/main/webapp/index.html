@@ -185,6 +185,11 @@
         );
 
         $('#login-button').click(function(){
+            var canSubmit = $("#captchaMsgId").attr('visibility');
+            console.log("Is validate:"+canSubmit);
+            if('visible'!= canSubmit){
+                alert('验证码有误');
+            }
             $('#login_form').submit();
         });
 
