@@ -130,7 +130,7 @@ public class VerifyDao extends BaseDao<VerifyCode> {
     }
 
     public void delete(VerifyCodeBo bo) {
-        String sql = "DELETE FROM shuoma_verify_code WHERE id=?";
-        this.getJdbcTemplate().update(sql,bo.getId());
+        String sql = "DELETE FROM shuoma_verify_code WHERE id in ("+bo.getIds()+")";
+        this.getJdbcTemplate().update(sql);
     }
 }

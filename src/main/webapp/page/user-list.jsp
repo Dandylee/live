@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="user.newUserDialog()">新建用户</a>
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="user.editUser()">编辑用户</a>
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="user.delUser()">删除用户</a>
-	        <label for="brand_id" style="padding:0px 0px 0px 250px">用户名称：</label>
+	        <label for="toolbar_user_name" style="padding:0px 0px 0px 250px">用户名称：</label>
 	        <input id="toolbar_user_name" class="easyui-textbox" style="width:120px" >
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="user.retrieve()"> 查询</a>
     	</div>
@@ -72,7 +72,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	            <div class="fitem" width="300px">
 	                <label>权&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp限&nbsp&nbsp:&nbsp&nbsp</label>
-	                <input id="form_level" name="level" class="easyui-textbox">
+	                <!-- data-options="prompt:'1-管理员,2-经理,3-员工,4-测试'" -->
+					<input id="form_level" name="level" class="easyui-textbox" />
+					<div>
+						<label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+						1-管理员,2-经理,3-员工,4-测试
+					</div>
 	            </div>
 <!-- 	            <div class="fitem" width="300px">
 	                <label>用&nbsp户&nbsp菜&nbsp单&nbsp&nbsp:&nbsp&nbsp</label>

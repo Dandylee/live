@@ -121,6 +121,10 @@ decoration = {
         }
     },
 
+    addOperate : function (){
+      return "<a href='#' onclick='verifyCode.deleteCode()'>删除</a>";
+	},
+
     
     formatOperType : function(val){
     	if(val==1){
@@ -400,6 +404,31 @@ verifyCode = {
                 $('#verifyCodes').textbox('setValue',text);
             }
         });
+	},
+
+	deleteCode : function(){
+        var data = {};
+        var rows = $('#usergrid').datagrid('getSelections');
+        if (rows){
+        	var ids = '';
+        	for(var index in rows){
+                ids = ids+rows[index].id+',';
+			}
+            data.ids=ids;
+            if(confirm('确定删除')){
+                JsonAjaxNew("/live/action/verify/delete",data,function(json){
+                    var code = json.code;
+                    if(code!=0){
+                        alert(json.msg);
+                    }else{
+                        alert('删除成功');
+                        $("#usergrid").datagrid("reload");
+                    }
+                });
+            }
+        }else{
+            $.messager.alert('提示','请选择要删除的记录！');
+        }
 	},
 
 	listCodes : function(){

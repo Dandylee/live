@@ -2,7 +2,7 @@ package com.mama.dandy.bo;
 
 public class VerifyCodeBo extends com.mama.dandy.common.page {
 
-    private Long id;
+    private String ids;
 
     private Long startTime;
 
@@ -74,11 +74,11 @@ public class VerifyCodeBo extends com.mama.dandy.common.page {
         this.endTime = endTime;
     }
 
-    public Long getId() {
-        return id;
+    public String getIds() {
+        return ids;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIds(String ids) {
+        this.ids = ids;
     }
 }

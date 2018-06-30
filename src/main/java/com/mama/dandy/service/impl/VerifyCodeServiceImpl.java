@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,13 +142,15 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 
     @Override
     public void delete(VerifyCodeBo bo) {
-        if(bo.getId()!=null){
+        if(StringUtils.isEmpty(bo.getIds())){
             throw new BusinessException("-1","id不能为空");
         }
         try{
+            String ids = bo.getIds();
+            bo.setIds(ids.substring(0,ids.length()-1));
             verifyDao.delete(bo);
         }catch(Exception e){
-            logger.error("when delete a record have a error,id{}",bo.getId(),e);
+            logger.error("when delete a record have a error,id{}",bo.getIds(),e);
         }
     }
 
