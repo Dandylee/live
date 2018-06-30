@@ -26,10 +26,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<thead>
 				<tr>
 					<th field="id" hidden=true>用户编号</th>
-					<th field="userName" width="18%" align="center">姓名</th>
-					<th field="account" width="18%" align="center">账号</th>
-					<th field="pwd" width="21%">密码</th>
-					<th field="level" width="23%" align="center">权限</th>
+					<th field="userName" width="27%" align="center">姓名</th>
+					<th field="account" width="25%" align="center">账号</th>
+					<th field="level" width="23%" align="center" formatter="decoration.formatLevel">权限</th>
 					<th field="lastLogin" width="20%" align="center" formatter="decoration.formatTime">最后操作时间</th>
 				</tr>
 			</thead>

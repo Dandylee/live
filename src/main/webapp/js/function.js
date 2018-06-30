@@ -90,6 +90,21 @@ decoration = {
     	return (new Date(val*1000).toLocaleString());
     },
 
+    formatLevel : function(val){
+    if(val == 0){
+        return 'Root';
+    }else if(val==1){
+    	return '管理员';
+	}else if(val == 2){
+    	return '经理';
+	}else if(val == 3){
+    	return '员工';
+	}else{
+    	return '测试';
+	}
+    return (new Date(val*1000).toLocaleString());
+},
+
 	isYesOrNo : function (val) {
         if(val==0 || val=="0"){
             return "否"

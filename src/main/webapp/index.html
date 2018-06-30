@@ -172,7 +172,7 @@
 
         $('#login_form').form(
             {
-                url:"action/user/login",
+                url:"/live/action/user/login",
                 success: function(data){
                     var data = eval('(' + data + ')');
                     if(data.code!="100"){
@@ -185,10 +185,11 @@
         );
 
         $('#login-button').click(function(){
-            var canSubmit = $("#captchaMsgId").attr('visibility');
+            var canSubmit = $("#captchaMsgId").attr("isVerify");
             console.log("Is validate:"+canSubmit);
-            if('visible'!= canSubmit){
+            if('y'!= canSubmit){
                 alert('验证码有误');
+                return false;
             }
             $('#login_form').submit();
         });
@@ -201,7 +202,7 @@
                 }
                 beforeCapValue = captcha;
                 $.ajax({
-                    url: "action/user/validateCaptcha",
+                    url: "/live/action/user/validateCaptcha",
                     dataType: "json",
                     data: {"captcha": captcha},
                     type: "get",
@@ -210,6 +211,7 @@
                             var msg = $("#captchaMsgId");
                             msg.attr("src", "img/form-ok-1.gif");
                             $("#captchaMsgId").attr("visibility", "visible");
+                            $("#captchaMsgId").attr("isVerify", "y");
                         } else {
                             handleCapErr();
                         }

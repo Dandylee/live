@@ -22,17 +22,18 @@ public class AuthorizedCheckFilter implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession();
 		if(session == null){
 			logger.error("session is null?? ");
 			throw new BusinessException("-1","请先登录");
 		}
+		logger.info("login session id is :{},context {}",request.getSession().getId(),request.getSession().getServletContext().getContextPath());
 		boolean isLogged =false;
 		try{
 			logger.info("isLog:{}",session.getAttribute("isLogged"));
 			Object obj = session.getAttribute("isLogged");
 			if(obj == null){
-				isLogged = true;
+				isLogged = false;
 			}else{
 				isLogged = (boolean) obj;
 			}

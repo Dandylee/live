@@ -96,6 +96,7 @@ public class UserController {
 		request.getSession().setAttribute("name", account.getUserName());
 		logger.info("set attribute isLog to session,{}",bo.getAccount());
 		request.getSession().setAttribute("isLogged", true);
+		logger.info("login session id is :{},context {}",request.getSession().getId(),request.getSession().getServletContext().getContextPath());
 		request.getSession().setAttribute(userAccountMD5, true);
 		return JsonUtils.toJSONString(ResponseCode.success);
 	}
@@ -120,7 +121,7 @@ public class UserController {
 						boolean isLogged =true;
 						if (isLogged) {
 							result = true;
-							request.getSession(true).setAttribute("isLogged", true);
+							request.getSession().setAttribute("isLogged", true);
 							request.setAttribute("isLogged", true);
 							logger.info("用户已经登录过可以免登录");
 						}
