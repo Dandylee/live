@@ -3,6 +3,7 @@ package com.mama.dandy.controller;
 
 import com.mama.dandy.bo.VerifyCodeBo;
 import com.mama.dandy.common.Resjson;
+import com.mama.dandy.common.ResponseCode;
 import com.mama.dandy.domain.LoginAccount;
 import com.mama.dandy.domain.VerifyCode;
 import com.mama.dandy.exception.BusinessException;
@@ -40,17 +41,26 @@ public class VerifyCodeController{
         }
         String code = handle(bo.getAgentCode());
         bo.setAgentCode(code);
+        LoginAccount account = checkAuthority(request,2);
+        bo.setOperator( account==null?"":account.getUserName());
         Resjson resjson = new Resjson();
         resjson.setData(service.generateVerifyCode(bo));
 
+        return JsonUtils.toJSONString(resjson);
+
+    }
+
+    private LoginAccount checkAuthority(HttpServletRequest request,int level) {
         HttpSession session = request.getSession();
         LoginAccount account = null;
         if(session!=null){
             account = (LoginAccount)session.getAttribute("account");
+            if(account!=null && account.getLevel()>level){
+                //只有级别为2或者更高等级的才能生产验证码
+                throw new BusinessException("-1","当前用户没有权限操作");
+            }
         }
-        bo.setOperator( account==null?"":account.getUserName());
-        return JsonUtils.toJSONString(resjson);
-
+        return account;
     }
 
     private static String handle(String code) {
@@ -75,6 +85,15 @@ public class VerifyCodeController{
         CommonVo vo = service.pageQuery(bo);
 
         return JsonUtils.toJSONString(vo);
+
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String delete(VerifyCodeBo bo,HttpServletRequest request){
+        checkAuthority(request,3);
+        service.delete(bo);
+        return JsonUtils.toJSONString(new Resjson());
 
     }
 }

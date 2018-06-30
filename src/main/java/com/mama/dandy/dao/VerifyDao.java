@@ -86,8 +86,16 @@ public class VerifyDao extends BaseDao<VerifyCode> {
             params.add(bo.getIsValid());
         }
         if(StringUtils.isNoneEmpty(bo.getAgentCode())){
-            sql += " AND a.agentCode = ?";
+            sql += " AND a.agentCode = ? ";
             params.add(bo.getAgentCode());
+        }
+        if(bo.getStartTime()!=null){
+            sql += " AND a.verifyTime >? ";
+            params.add(bo.getStartTime());
+        }
+        if(bo.getEndTime()!=null){
+            sql += " AND a.verifyTime <? ";
+            params.add(bo.getEndTime());
         }
         return getJdbcTemplate().queryForObject(sql, params.toArray(),Integer.class);
     }
@@ -104,6 +112,14 @@ public class VerifyDao extends BaseDao<VerifyCode> {
             sql += " AND a.agentCode = ?";
             params.add(bo.getAgentCode());
         }
+        if(bo.getStartTime()!=null){
+            sql += " AND a.verifyTime >? ";
+            params.add(bo.getStartTime());
+        }
+        if(bo.getEndTime()!=null){
+            sql += " AND a.verifyTime <? ";
+            params.add(bo.getEndTime());
+        }
         sql +=" ORDER BY a.id asc";
         if(bo.getRows()!=null && bo.getPage()!=null){
             sql +=" LIMIT ?,?";
@@ -111,5 +127,10 @@ public class VerifyDao extends BaseDao<VerifyCode> {
             params.add(bo.getRows());
         }
         return findList(sql, VerifyCode.class, params.toArray());
+    }
+
+    public void delete(VerifyCodeBo bo) {
+        String sql = "DELETE FROM shuoma_verify_code WHERE id in ("+bo.getIds()+")";
+        this.getJdbcTemplate().update(sql);
     }
 }
