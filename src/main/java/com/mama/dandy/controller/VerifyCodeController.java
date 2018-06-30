@@ -3,6 +3,7 @@ package com.mama.dandy.controller;
 
 import com.mama.dandy.bo.VerifyCodeBo;
 import com.mama.dandy.common.Resjson;
+import com.mama.dandy.common.ResponseCode;
 import com.mama.dandy.domain.LoginAccount;
 import com.mama.dandy.domain.VerifyCode;
 import com.mama.dandy.exception.BusinessException;
@@ -75,6 +76,15 @@ public class VerifyCodeController{
         CommonVo vo = service.pageQuery(bo);
 
         return JsonUtils.toJSONString(vo);
+
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public String delete(VerifyCodeBo bo){
+
+        service.delete(bo);
+        return JsonUtils.toJSONString(ResponseCode.success);
 
     }
 }

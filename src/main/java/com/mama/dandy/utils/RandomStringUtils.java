@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class RandomStringUtils {
 
-    public static final String allChar = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String allChar = "123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ";
 
     /**
      * 产生len长度的随机字符串

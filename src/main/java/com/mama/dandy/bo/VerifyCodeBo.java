@@ -1,8 +1,12 @@
 package com.mama.dandy.bo;
 
-import com.mama.dandy.common.page;
-
 public class VerifyCodeBo extends com.mama.dandy.common.page {
+
+    private Long id;
+
+    private Long startTime;
+
+    private Long endTime;
 
     private String agentCode;
 
@@ -52,5 +56,29 @@ public class VerifyCodeBo extends com.mama.dandy.common.page {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public Long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

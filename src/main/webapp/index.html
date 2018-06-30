@@ -172,7 +172,7 @@
 
         $('#login_form').form(
             {
-                url:"action/user/login",
+                url:"/live/action/user/login",
                 success: function(data){
                     var data = eval('(' + data + ')');
                     if(data.code!="100"){
@@ -201,7 +201,7 @@
                 }
                 beforeCapValue = captcha;
                 $.ajax({
-                    url: "action/user/validateCaptcha",
+                    url: "/live/action/user/validateCaptcha",
                     dataType: "json",
                     data: {"captcha": captcha},
                     type: "get",

@@ -2,6 +2,28 @@
  * 
  */
 
+Date.prototype.format = function (format) {
+    var date = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds()
+    };
+    if (/(y+)/i.test(format)) {
+        format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in date) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+        }
+    }
+    return format;
+};
+
 var ajaxLoading = function() {
 	$("<div class=\"datagrid-mask\"></div>").css({
 		display : "block",
@@ -87,7 +109,7 @@ decoration = {
 		if(val == '0'){
             return '';
 		}
-    	return (new Date(val*1000).toLocaleString());
+    	return (new Date(val*1000).format('yyyy-MM-dd hh:mm:ss'));
     },
 
 	isYesOrNo : function (val) {
@@ -383,7 +405,19 @@ verifyCode = {
 	listCodes : function(){
         var agentCode = $("#agentCode").val();
         var isValid = $("#isValid").val();
+        var verifyStartTime = $('#verifyStartTime').datebox('getValue');
+        var verifyEndTime = $('#verifyEndTime').datebox('getValue');
         var data={};
+        if (verifyStartTime) {
+            var date1 =new Date(Date.parse(verifyStartTime.replace(/-/g,"/"))).getTime() / 1000;
+            data.startTime = date1;
+        }
+        if (verifyEndTime) {
+            // var endDate=new Date(Date.parse(operTime2.replace(/-/g,"/"))).setHours(23,59,59);
+            //var date2 =new Date(endDate) / 1000;
+            var date2 =new Date(Date.parse(verifyEndTime.replace(/-/g,"/"))).getTime() / 1000;
+            data.endTime = date2;
+        }
         data.agentCode = agentCode;
         data.isValid = isValid;
 
@@ -429,5 +463,6 @@ business = {
 		}
 		$('#tt').datagrid('load', params);
 	}
+
 	
 }

@@ -14,4 +14,6 @@ public interface VerifyCodeService {
     VerifyResultVo checkVerifyCode(VerifyCodeBo bo);
 
     CommonVo pageQuery(VerifyCodeBo bo);
+
+    void delete(VerifyCodeBo bo);
 }

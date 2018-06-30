@@ -84,6 +84,10 @@
                             </select>
                             <label for="agentCode" style="padding:0px 0px 0px 50px">代理商编号：</label>
                             <input id="agentCode" class="easyui-textbox" style="width:120px" >
+                            <label style="padding:0px 10px">验证时间：</label>
+                            <input id="verifyStartTime" class="easyui-datetimebox" style="width:150px" editable="false">
+                            <span style="padding:0px 5px">~</span>
+                            <input id="verifyEndTime" class="easyui-datetimebox" style="width:150px" editable="false">
                             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="verifyCode.listCodes()"> 查询</a>
                         </div>
             </div>

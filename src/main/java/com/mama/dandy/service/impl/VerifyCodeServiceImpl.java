@@ -3,6 +3,7 @@ package com.mama.dandy.service.impl;
 import com.mama.dandy.bo.VerifyCodeBo;
 import com.mama.dandy.dao.VerifyDao;
 import com.mama.dandy.domain.VerifyCode;
+import com.mama.dandy.exception.BusinessException;
 import com.mama.dandy.service.VerifyCodeService;
 import com.mama.dandy.utils.JsonUtils;
 import com.mama.dandy.utils.RandomStringUtils;
@@ -137,6 +138,19 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 
         return vo;
     }
+
+    @Override
+    public void delete(VerifyCodeBo bo) {
+        if(bo.getId()!=null){
+            throw new BusinessException("-1","id不能为空");
+        }
+        try{
+            verifyDao.delete(bo);
+        }catch(Exception e){
+            logger.error("when delete a record have a error,id{}",bo.getId(),e);
+        }
+    }
+
 
     private VerifyCode buildVerifyCode(VerifyCodeBo bo) {
         VerifyCode code = new VerifyCode();
