@@ -294,7 +294,17 @@ user = {
 		    	$.messager.alert('提示','请选择要编辑的用户！');
 		    }
 		},
-		
+
+		seePwd : function () {
+            var row = $('#usergrid').datagrid('getSelected');
+            if(row!=null){
+                $('#pswdlg').dialog('open').dialog('setTitle','用户密码');
+            	var pwd = row.pwd;
+                $('#pswdlg').html(pwd);
+			}else{
+                $.messager.alert('提示','请选择要查看的用户！');
+			}
+        },
 		editAppUser : function(){
 		    var row = $('#usergrid').datagrid('getSelected');
 		    if (row){
@@ -451,6 +461,8 @@ verifyCode = {
         var isValid = $("#isValid").val();
         var verifyStartTime = $('#verifyStartTime').datebox('getValue');
         var verifyEndTime = $('#verifyEndTime').datebox('getValue');
+        var createStartTime = $('#createStartTime').datebox('getValue');
+        var createEndTime = $('#createEndTime').datebox('getValue');
         var data={};
         if (verifyStartTime) {
             var date1 =new Date(Date.parse(verifyStartTime.replace(/-/g,"/"))).getTime() / 1000;
@@ -461,6 +473,14 @@ verifyCode = {
             //var date2 =new Date(endDate) / 1000;
             var date2 =new Date(Date.parse(verifyEndTime.replace(/-/g,"/"))).getTime() / 1000;
             data.endTime = date2;
+        }
+        if (createStartTime) {
+            var date1 =new Date(Date.parse(createStartTime.replace(/-/g,"/"))).getTime() / 1000;
+            data.createStartTime = date1;
+        }
+        if (createEndTime) {
+            var date2 =new Date(Date.parse(createEndTime.replace(/-/g,"/"))).getTime() / 1000;
+            data.createEndTime = date2;
         }
         data.agentCode = agentCode;
         data.isValid = isValid;

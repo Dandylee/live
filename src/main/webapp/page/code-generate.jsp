@@ -56,7 +56,7 @@
             <div data-options="region:'east'" style="width:50%;height:100px;padding:10px">
                 <input id="verifyCodes" class="easyui-textbox" data-options="multiline:true" value="" style="width:100%;height:95%;padding:0">
             </div>
-            <div data-options="region:'south'" style="width:auto;height:400px;padding:10px">
+            <div data-options="region:'south'" style="width:auto;height:400px;padding:10px;">
                 <table style="width: 100%; height: 548px"
                        id="usergrid" class="easyui-datagrid" url="/live/action/verify/listCodes"
                        toolbar="#toolbar" rownumbers="true" pageSize="15" pageList="[10,15,20,30]" singleSelect="false" pagination="true">
@@ -64,17 +64,17 @@
                     <tr>
                         <th field="id" hidden=true>密钥编号</th>
                         <th field="agentCode" width="13%" align="center">代理商编号</th>
-                        <th field="verifyCode" width="15%" align="center">密钥</th>
+                        <th field="verifyCode" width="16%" align="center">密钥</th>
                         <th field="isValid" width="7%" align="center" formatter="decoration.isYesOrNo">是否认证</th>
                         <th field="verifyTime" width="15%" formatter="decoration.formatTime">认证时间</th>
                         <th field="operator" width="15%" align="center">操作人</th>
                         <th field="createTime" width="18%" align="center" formatter="decoration.formatTime">创建时间</th>
-                        <th field="operate" width="18%" align="center" formatter="decoration.addOperate">操作</th>
+                        <th field="operate" width="14%" align="center" formatter="decoration.addOperate">操作</th>
                     </tr>
                     </thead>
                 </table>
 
-                <div id="toolbar" style="height:50px;">
+                <div id="toolbar" style="height:70px;">
                     <center>
                         <div style="margin:12px 0;">
                             <label for="isValid" > 是否验证 </label>
@@ -83,12 +83,16 @@
                                 <option value="1">是</option>
                                 <option value="0">否</option>
                             </select>
-                            <label for="agentCode" style="padding:0px 0px 0px 50px">代理商编号：</label>
+                            <label for="agentCode" style="padding:0px 0px 0px 30px">代理商编号：</label>
                             <input id="agentCode" class="easyui-textbox" style="width:120px" >
                             <label style="padding:0px 10px">验证时间：</label>
-                            <input id="verifyStartTime" class="easyui-datetimebox" style="width:150px" editable="false">
+                            <input id="verifyStartTime" class="easyui-datetimebox" style="width:150px" editable="true">
                             <span style="padding:0px 5px">~</span>
-                            <input id="verifyEndTime" class="easyui-datetimebox" style="width:150px" editable="false">
+                            <input id="verifyEndTime" class="easyui-datetimebox" style="width:150px" editable="true">
+                            <label style="padding:0px 10px">生成时间：</label>
+                            <input id="createStartTime" class="easyui-datetimebox" style="width:150px" editable="true">
+                            <span style="padding:0px 5px">~</span>
+                            <input id="createEndTime" class="easyui-datetimebox" style="width:150px" editable="true">
                             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="verifyCode.listCodes()"> 查询</a>
                         </div>
             </div>

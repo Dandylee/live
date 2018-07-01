@@ -97,6 +97,14 @@ public class VerifyDao extends BaseDao<VerifyCode> {
             sql += " AND a.verifyTime <? ";
             params.add(bo.getEndTime());
         }
+        if(bo.getCreateStartTime()!=null){
+            sql += " AND a.createTime >? ";
+            params.add(bo.getCreateStartTime());
+        }
+        if(bo.getCreateEndTime()!=null){
+            sql += " AND a.createTime <? ";
+            params.add(bo.getCreateEndTime());
+        }
         return getJdbcTemplate().queryForObject(sql, params.toArray(),Integer.class);
     }
 
@@ -119,6 +127,14 @@ public class VerifyDao extends BaseDao<VerifyCode> {
         if(bo.getEndTime()!=null){
             sql += " AND a.verifyTime <? ";
             params.add(bo.getEndTime());
+        }
+        if(bo.getCreateStartTime()!=null){
+            sql += " AND a.createTime >? ";
+            params.add(bo.getCreateStartTime());
+        }
+        if(bo.getCreateEndTime()!=null){
+            sql += " AND a.createTime <? ";
+            params.add(bo.getCreateEndTime());
         }
         sql +=" ORDER BY a.id asc";
         if(bo.getRows()!=null && bo.getPage()!=null){

@@ -8,6 +8,10 @@ public class VerifyCodeBo extends com.mama.dandy.common.page {
 
     private Long endTime;
 
+    private Long createStartTime;
+
+    private Long createEndTime;
+
     private String agentCode;
 
     private Integer num;
@@ -80,5 +84,21 @@ public class VerifyCodeBo extends com.mama.dandy.common.page {
 
     public void setIds(String ids) {
         this.ids = ids;
+    }
+
+    public Long getCreateStartTime() {
+        return createStartTime;
+    }
+
+    public void setCreateStartTime(Long createStartTime) {
+        this.createStartTime = createStartTime;
+    }
+
+    public Long getCreateEndTime() {
+        return createEndTime;
+    }
+
+    public void setCreateEndTime(Long createEndTime) {
+        this.createEndTime = createEndTime;
     }
 }

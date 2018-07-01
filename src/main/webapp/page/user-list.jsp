@@ -17,6 +17,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=basePath%>jquery-easyui-1.4.3/easyui-lang-zh_CN.js"></script>
 	
 	<script charset="UTF-8" type="text/javascript" src="<%=basePath%>js/function.js"></script>
+	<script>
+        $(function() {
+           var level = $('#operateLevel').val();
+           if(level<=1){
+				$('#seePassword').show();
+		   }else{
+               $('#seePassword').hide();
+		   }
+        })
+	</script>
 </head>
 <body>
 <center>
@@ -28,8 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<th field="id" hidden=true>用户编号</th>
 					<th field="userName" width="27%" align="center">姓名</th>
 					<th field="account" width="25%" align="center">账号</th>
+					<th field="pwd" hidden=true width="25%" align="center">pwd</th>
 					<th field="level" width="23%" align="center" formatter="decoration.formatLevel">权限</th>
-					<th field="lastLogin" width="20%" align="center" formatter="decoration.formatTime">最后操作时间</th>
+					<th field="lastLogin" width="23%" align="center" formatter="decoration.formatTime">最后操作时间</th>
 				</tr>
 			</thead>
 		</table>
@@ -39,6 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="user.newUserDialog()">新建用户</a>
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="user.editUser()">编辑用户</a>
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="user.delUser()">删除用户</a>
+			<a href="javascript:void(0)" id="seePassword" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="user.seePwd()">查看密码</a>
 	        <label for="toolbar_user_name" style="padding:0px 0px 0px 250px">用户名称：</label>
 	        <input id="toolbar_user_name" class="easyui-textbox" style="width:120px" >
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="user.retrieve()"> 查询</a>
@@ -85,6 +97,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</center>
 	        </form>
 	    </div>
+
+	<div id="pswdlg" class="easyui-dialog" style="width:300px;height:120px;"
+		 closed="true" >
+		<%--<input id="user-psw" name="user-psw" class="easyui-textbox" />--%>
+	</div>
+
 	    <div id="dlg-buttons">
 	        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="user.createOrSaveUser()" style="width:90px">保存</a>
 	        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">取消</a>
