@@ -29,8 +29,8 @@
 </head>
 <body>
 <center>
-    <div style="margin:20px 0 10px 0;"></div>
-    <div class="easyui-panel" title="生成校验码" style="width:auto;height:600px;padding:10px;">
+    <div style="margin:0px 0 5px 0;"></div>
+    <div class="easyui-panel" title="生成校验码" style="width:98%;height:800px;padding:10px;">
         <div class="easyui-layout" data-options="fit:true">
             <div data-options="region:'center',split:true" style="width:50%;height:100px;padding:10px;text-align: center">
                <table style="text-align: center;margin-left: 30%;">
@@ -53,11 +53,11 @@
                </table>
 
             </div>
-            <div data-options="region:'east'" style="width:50%;height:100px;padding:10px">
-                <input id="verifyCodes" class="easyui-textbox" data-options="multiline:true" value="" style="width:100%;height:95%;padding:0">
+            <div data-options="region:'east'" style="width:50%;height:100px;padding:0px;margin-bottom: 0px">
+                <input id="verifyCodes" class="easyui-textbox" data-options="multiline:true" value="" style="width:100%;height:100%;padding:0px">
             </div>
-            <div data-options="region:'south'" style="width:auto;height:400px;padding:10px;">
-                <table style="width: 100%; height: 548px"
+            <div data-options="region:'south'" style="width:100%;height:550px;margin-top: 0px">
+                <table style="width: 100%; height: 534px"
                        id="usergrid" class="easyui-datagrid" url="/live/action/verify/listCodes"
                        toolbar="#toolbar" rownumbers="true" pageSize="15" pageList="[10,15,20,30]" singleSelect="false" pagination="true">
                     <thead>
@@ -74,7 +74,7 @@
                     </thead>
                 </table>
 
-                <div id="toolbar" style="height:70px;">
+                <div id="toolbar" style="height:50px;">
                     <center>
                         <div style="margin:12px 0;">
                             <label for="isValid" > 是否验证 </label>

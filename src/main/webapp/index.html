@@ -213,6 +213,7 @@
                             $("#captchaMsgId").attr("visibility", "visible");
                             $("#captchaMsgId").attr("isVerify", "y");
                         } else {
+                            $("#captchaMsgId").removeAttr('isVerify');
                             handleCapErr();
                         }
                     },
