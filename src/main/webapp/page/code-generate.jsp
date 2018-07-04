@@ -74,7 +74,7 @@
                     </thead>
                 </table>
 
-                <div id="toolbar" style="height:50px;">
+                <div id="toolbar" style="height:60px;">
                     <center>
                         <div style="margin:12px 0;">
                             <label for="isValid" > 是否验证 </label>

@@ -63,7 +63,7 @@ var JsonAjaxNew = function(url, data, callback) {
 		if (json) {
 			if (json.code == 100) {
 				$.messager.alert('提示', json.msg);
-				window.parent.location.href = '/toolbox/index.html';
+				window.parent.location.href = '/live/error.jsp';
 				return;
 			}
 		}
